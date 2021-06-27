@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,OAAO,CAAC;EACJ,MAAM,EAAE,KAAK;CAiBhB;;AAlBD,AAGI,OAHG,CAGH,SAAS,CAAC;EACL,gBAAgB,EAAE,4BAA4B;CAC9C;;AALT,AAOQ,OAPD,CAOC,SAAS,CAAC;EACN,gBAAgB,EAAE,IAAI;CACzB;;AATT,AAWQ,OAXD,CAWC,SAAS,CAAC;EACN,gBAAgB,EAAE,IAAI;CACzB;;AAbT,AAeQ,OAfD,CAeC,SAAS,CAAC;EACN,gBAAgB,EAAE,IAAI;CACzB",
-    "sources": [
-        "../../assignment-2/style.scss"
-    ],
-    "names": [],
-    "file": "style.css"
-}

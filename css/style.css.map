@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAAA,AAAA,OAAO,CAAC;EACJ,MAAM,EAAE,KAAK;CAChB;;AAED,AAAA,QAAQ,CAAA;EACR,gBAAgB,EAAE,IAAI;CACrB;;AAED,AAAA,QAAQ,CAAA;EACJ,gBAAgB,EAAE,IAAI;CACzB;;AAED,AAAA,QAAQ,CAAA;EACJ,gBAAgB,EAAE,IAAI;CACzB;;AAED,AAAA,QAAQ,CAAA;EACJ,gBAAgB,EAAE,IAAI;CACzB",
     "sources": [
         "../../assignment-2/style.scss"
     ],

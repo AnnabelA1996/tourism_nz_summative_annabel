@@ -1,4 +1,4 @@
-//date-picker
+// date-picker
 let startDate;
 let endDate;
 
@@ -28,17 +28,17 @@ $('#datepicker').flatpickr(dateOptions);
 
 const mapConfig = {
   zoomSnap: 0.2,
-}
+};
 
-//map
+// map
 const map = L.map('mapid', mapConfig).fitBounds(L.latLngBounds(L.latLng({
   lng: 179.243,
-  lat: -33.490
+  lat: -33.490,
 }), L.latLng({
   lng: 164.924,
   lat: -47.600,
 })));
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);

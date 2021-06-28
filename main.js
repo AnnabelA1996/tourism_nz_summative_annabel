@@ -5,7 +5,7 @@ const cities = {
     lng: 174.7645,
   },
   whangarei: {
-    name: 'WWhangarei',
+    name: 'Whangarei',
     lat: -35.7275,
     lng: 174.3166,
   },
@@ -131,9 +131,33 @@ map.on('click', (event) => {
 });
 
 Object.keys(cities).forEach((key) => {
-  const option = document.createElement('option');
-  option.value = key;
-  option.name = cities[key].name;
-  $('#depature-location').add(option);
-  $('#arrival-location').add(option);
+  const option1 = document.createElement('option');
+  const option2 = document.createElement('option');
+  option1.value = key;
+  option2.value = key;
+  option1.text = cities[key].name;
+  option2.text = cities[key].name;
+  $('#departure-location').append(option1);
+  $('#arrival-location').append(option2);
 });
+
+// init screens
+
+function changeScreen() {
+  $('.view').hide();
+  const view = $(this).data('view');
+  $(`#${view}`).show();
+}
+
+function initScreens() {
+  $('.view').slice(1).hide();
+  $('.nav-link').click(changeScreen);
+  $('.nav-logo').click(changeScreen);
+  // ^ needed to add class not just nav-link because there's nothing called that
+}
+
+function init() {
+  initScreens();
+}
+
+init();

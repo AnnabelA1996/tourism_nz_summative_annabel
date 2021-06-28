@@ -129,3 +129,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 map.on('click', (event) => {
   L.marker(event.latlng).addTo(map);
 });
+
+Object.keys(cities).forEach((key) => {
+  const option = document.createElement('option');
+  option.value = key;
+  option.name = cities[key].name;
+  $('#depature-location').add(option);
+  $('#arrival-location').add(option);
+});

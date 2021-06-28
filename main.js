@@ -1,3 +1,86 @@
+const cities = {
+  auckland: {
+    name: 'Auckland',
+    lat: -36.8509,
+    lng: 174.7645,
+  },
+  whangarei: {
+    name: 'WWhangarei',
+    lat: -35.7275,
+    lng: 174.3166,
+  },
+  hamilton: {
+    name: 'Hamilton',
+    lat: -37.7826,
+    lng: 175.2528,
+  },
+  tauranga: {
+    name: 'Tauranga',
+    lat: -37.7476,
+    lng: 176.1220,
+  },
+  rotorua: {
+    name: 'Rotorua',
+    lat: -38.1446,
+    lng: 176.2378,
+  },
+  gisborne: {
+    name: 'Gisborne',
+    lat: -38.6641,
+    lng: 178.0228,
+  },
+  napier: {
+    name: 'Napier',
+    lat: -39.5109,
+    lng: 176.8764,
+  },
+  newPlymouth: {
+    name: 'New Plymouth',
+    lat: -39.0572,
+    lng: 174.0794,
+  },
+  palmerstonNorth: {
+    name: 'Palmerston North',
+    lat: -40.3545,
+    lng: 175.6097,
+  },
+  wellington: {
+    name: 'Wellington',
+    lat: -41.2924,
+    lng: 174.7787,
+  },
+  nelson: {
+    name: 'Nelson',
+    lat: -41.2985,
+    lng: 173.2444,
+  },
+  greymouth: {
+    name: 'Greymouth',
+    lat: -42.4614,
+    lng: 171.1985,
+  },
+  christchurch: {
+    name: 'Christchurch',
+    lat: -43.5320,
+    lng: 172.6306,
+  },
+  dunedin: {
+    name: 'Dunedin',
+    lat: -45.8795,
+    lng: 170.5006,
+  },
+  queenstown: {
+    name: 'Queenstown',
+    lat: -45.0302,
+    lng: 168.6615,
+  },
+  invercargill: {
+    name: 'Invercargill',
+    lat: -46.4179,
+    lng: 168.3615,
+  },
+};
+
 // date-picker
 let startDate;
 let endDate;

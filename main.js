@@ -2,6 +2,43 @@
 let startDate;
 let endDate;
 
+// input form
+// const firstNameElement = document.querySelector('#first-name');
+// const secondNameElement = document.querySelector('#second-name');
+const amountOfPeopleElement = document.querySelector('#amount-of-people');
+// const ageElement = document.querySelector('#age');
+const submitElement = document.querySelector('#submit');
+
+// let firstNameValid = true;
+// let secondNameValid = true;
+let amountOfPeopleValid = true;
+// let ageValid = true;
+
+// function submitActive (){
+//   submitElement.disabled = !(firstNameValid
+// && secondNameValid && amountOfPeopleValid
+// && ageValid);}
+
+function submitActive() {
+  submitElement.disabled = !(amountOfPeopleValid);
+}
+
+function validateAmountOfPeople(event) {
+  const value = event.target.value.trim();
+  if (value.length !== 6 || Number.isNaN(value)) {
+    amountOfPeopleValid = false;
+    event.target.style.background = 'red';
+  } else {
+    event.target.style.background = '';
+    amountOfPeopleValid = true;
+  }
+  submitActive();
+}
+
+$.(amountOfPeople)
+
+amountOfPeopleElement.addEventListener('blur', validateAmountOfPeople);
+
 const cities = {
   auckland: {
     name: 'Auckland',
@@ -148,8 +185,8 @@ function departureChange() {
   setRouting();
 }
 
-//if marker else new marker
-//look at line 56 from week 7 day 3
+// if marker else new marker
+// look at line 56 from week 7 day 3
 
 function arrivalChange() {
   const city = cities[this.value];

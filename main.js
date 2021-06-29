@@ -1,3 +1,7 @@
+// date-picker
+let startDate;
+let endDate;
+
 const cities = {
   auckland: {
     name: 'Auckland',
@@ -81,17 +85,12 @@ const cities = {
   },
 };
 
-// date-picker
-let startDate;
-let endDate;
-
 const dateOptions = {
   altInput: true,
   altFormat: 'F j, Y',
   dateFormat: 'Y-m-d',
   minDate: 'today',
   mode: 'range',
-  // allowInput: true,
   inline: true,
 
   onChange(dates, string, picker) {
@@ -107,13 +106,16 @@ const dateOptions = {
   },
 };
 
+const wayPoints = [];
+
 $('#datepicker').flatpickr(dateOptions);
+
+// map
 
 const mapConfig = {
   zoomSnap: 0.2,
 };
 
-// map
 const map = L.map('mapid', mapConfig).fitBounds(L.latLngBounds(L.latLng({
   lng: 179.243,
   lat: -33.490,
@@ -130,18 +132,41 @@ map.on('click', (event) => {
   L.marker(event.latlng).addTo(map);
 });
 
-Object.keys(cities).forEach((key) => {
-  const option1 = document.createElement('option');
-  const option2 = document.createElement('option');
-  option1.value = key;
-  option2.value = key;
-  option1.text = cities[key].name;
-  option2.text = cities[key].name;
-  $('#departure-location').append(option1);
-  $('#arrival-location').append(option2);
-});
+function setRouting() {
+  // L.Routing.control({
+  //   waypoints: wayPoints,
+  // }).addTo(map);
+  L.Routing.control.setWaypoints(wayPoints);
+}
 
-// init screens
+function departureChange() {
+  const city = cities[this.value];
+  wayPoints[0] = L.latLng(city.lat, city.lng);
+  setRouting();
+}
+
+function arrivalChange() {
+  const city = cities[this.value];
+  wayPoints[0] = L.latLng(city.lat, city.lng);
+  setRouting();
+}
+
+function initDropdowns() {
+  Object.keys(cities).forEach((key) => {
+    const option1 = document.createElement('option');
+    const option2 = document.createElement('option');
+    option1.value = key;
+    option2.value = key;
+    option1.text = cities[key].name;
+    option2.text = cities[key].name;
+    $('#departure-location').append(option1);
+    $('#arrival-location').append(option2);
+  });
+  $('#departure-location').change(departureChange);
+  $('#arrival-location').change(arrivalChange);
+}
+
+// init screens - page switching functions
 
 function changeScreen() {
   $('.view').hide();
@@ -153,11 +178,14 @@ function initScreens() {
   $('.view').slice(1).hide();
   $('.nav-link').click(changeScreen);
   $('.nav-logo').click(changeScreen);
-  // ^ needed to add class not just nav-link because there's nothing called that
 }
 
 function init() {
   initScreens();
+  initDropdowns();
+  L.Routing.control({
+    router: L.Routing.mapbox('pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA'),
+  }).addTo(map);
 }
 
 init();

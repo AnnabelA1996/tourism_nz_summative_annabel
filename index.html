@@ -14,6 +14,10 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,47 +35,47 @@
     </ul>
   </nav>
 
-<main id="user-inputs" class="view">
+  <main id="user-inputs" class="view">
 
-  <section id="section1">
-    <a href="#section2">Next</a>
+    <section id="section1">
+      <a href="#section2">Next</a>
+    </section>
+
+    <section id="section2">
+      <input type="text" id="datepicker" placeholder="Select Date">
+      <p>start Date: <span id="start-date"></span></p>
+      <p>end Date: <span id="end-date"></span></p>
+      <a href="#section3">Next</a>
+    </section>
+    <section id="section3">
+      <select name="depature-location" id="departure-location">
+        <option selected disabled>Departure Location</option>
+      </select>
+      <select name="arrival-location" id="arrival-location">
+        <option selected disabled>Arrival Location</option>
+      </select>
+      <div id="mapid"></div>
+      <a href="#section4">Reset</a>
+      <a href="#section1">Get Travel Info</a>
+    </section>
+    <section id="section4"></section>
+  </main>
+
+  <section id="covid" class="view">
+    <h2>Covid-19 Information</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis nulla fugit porro explicabo praesentium
+      veniam inventore recusandae distinctio voluptatum doloremque similique dolores tempore officia sapiente quas modi,
+      libero eveniet corrupti delectus odio velit! Nesciunt, repudiandae dolorum placeat minima, quidem expedita nemo
+      error illum adipisci sed aspernatur repellendus, consectetur quis beatae?</p>
   </section>
 
-  <section id="section2">
-    <input type="text" id="datepicker" placeholder="Select Date">
-    <p>start Date: <span id="start-date"></span></p>
-    <p>end Date: <span id="end-date"></span></p>
-    <a href="#section3">Next</a>
+  <section id="deals" class="view">
+    <h2>Travel Deals</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis nulla fugit porro explicabo praesentium
+      veniam inventore recusandae distinctio voluptatum doloremque similique dolores tempore officia sapiente quas modi,
+      libero eveniet corrupti delectus odio velit! Nesciunt, repudiandae dolorum placeat minima, quidem expedita nemo
+      error illum adipisci sed aspernatur repellendus, consectetur quis beatae?</p>
   </section>
-  <section id="section3">
-    <select name="depature-location" id="departure-location">
-      <option selected disabled>Departure Location</option>
-    </select>
-    <select name="arrival-location" id="arrival-location">
-      <option selected disabled>Arrival Location</option>
-    </select>
-    <div id="mapid"></div>
-    <a href="#section4">Reset</a>
-    <a href="#section1">Get Travel Info</a>
-  </section>
-  <section id="section4"></section>
-</main>
-
-<section id="covid" class="view">
-  <h2>Covid-19 Information</h2>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis nulla fugit porro explicabo praesentium
-    veniam inventore recusandae distinctio voluptatum doloremque similique dolores tempore officia sapiente quas modi,
-    libero eveniet corrupti delectus odio velit! Nesciunt, repudiandae dolorum placeat minima, quidem expedita nemo
-    error illum adipisci sed aspernatur repellendus, consectetur quis beatae?</p>
-</section>
-
-<section id="deals" class="view">
-  <h2>Travel Deals</h2>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis nulla fugit porro explicabo praesentium
-    veniam inventore recusandae distinctio voluptatum doloremque similique dolores tempore officia sapiente quas modi,
-    libero eveniet corrupti delectus odio velit! Nesciunt, repudiandae dolorum placeat minima, quidem expedita nemo
-    error illum adipisci sed aspernatur repellendus, consectetur quis beatae?</p>
-</section>
 </body>
 
 </html>

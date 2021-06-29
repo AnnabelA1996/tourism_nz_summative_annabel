@@ -108,6 +108,8 @@ const dateOptions = {
 
 const wayPoints = [];
 
+let routeControl;
+
 $('#datepicker').flatpickr(dateOptions);
 
 // map
@@ -133,17 +135,21 @@ map.on('click', (event) => {
 });
 
 function setRouting() {
-  // L.Routing.control({
-  //   waypoints: wayPoints,
-  // }).addTo(map);
-  L.Routing.control.setWaypoints(wayPoints);
+  console.log(wayPoints);
+  routeControl.getPlan().setWaypoints({
+    latLng: wayPoints,
+  });
 }
 
 function departureChange() {
   const city = cities[this.value];
+  console.log(city);
   wayPoints[0] = L.latLng(city.lat, city.lng);
   setRouting();
 }
+
+//if marker else new marker
+//look at line 56 from week 7 day 3
 
 function arrivalChange() {
   const city = cities[this.value];
@@ -183,9 +189,11 @@ function initScreens() {
 function init() {
   initScreens();
   initDropdowns();
-  L.Routing.control({
+  routeControl = L.Routing.control({
+    waypoints: [null],
     router: L.Routing.mapbox('pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA'),
-  }).addTo(map);
+  });
+  routeControl.addTo(map);
 }
 
 init();

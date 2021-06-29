@@ -3,39 +3,79 @@ let startDate;
 let endDate;
 
 // input form
-// const firstNameElement = document.querySelector('#first-name');
-// const secondNameElement = document.querySelector('#second-name');
-const amountOfPeopleElement = document.querySelector('#amount-of-people');
-// const ageElement = document.querySelector('#age');
-const submitElement = document.querySelector('#submit');
 
-// let firstNameValid = true;
-// let secondNameValid = true;
+let firstNameValid = true;
+let secondNameValid = true;
 let amountOfPeopleValid = true;
-// let ageValid = true;
-
-// function submitActive (){
-//   submitElement.disabled = !(firstNameValid
-// && secondNameValid && amountOfPeopleValid
-// && ageValid);}
+let ageValid = true;
 
 function submitActive() {
-  submitElement.disabled = !(amountOfPeopleValid);
+  $('#submit').prop('disabled', !(firstNameValid
+    && secondNameValid && amountOfPeopleValid
+    && ageValid));
 }
 
 function validateAmountOfPeople(event) {
   const value = event.target.value.trim();
-  if (value.length !== 6 || Number.isNaN(value)) {
+  const num = Number.parseInt(value, 10);
+  if (Number.isNaN(num) || num > 6 || num < 1) {
     amountOfPeopleValid = false;
-    event.target.style.background = 'red';
+    $('#amount-of-people').css({
+      background: 'red',
+    });
   } else {
-    event.target.style.background = '';
+    $('#amount-of-people').css({
+      background: '',
+    });
     amountOfPeopleValid = true;
   }
   submitActive();
 }
 
-amountOfPeopleElement.addEventListener('blur', validateAmountOfPeople);
+function validateFirstName(event) {
+  firstNameValid = /^[a-zA-Z]+$/.test(event.target.value.trim());
+  if (firstNameValid) {
+    $('#first-name').css({
+      background: '',
+    });
+  } else {
+    $('#first-name').css({
+      background: 'red',
+    });
+  }
+  submitActive();
+}
+
+function validateSecondName(event) {
+  secondNameValid = /^[a-zA-Z]+$/.test(event.target.value.trim());
+  if (secondNameValid) {
+    $('#second-name').css({
+      background: '',
+    });
+  } else {
+    $('#second-name').css({
+      background: 'red',
+    });
+  }
+  submitActive();
+}
+
+function validateAge(event) {
+  const value = event.target.value.trim();
+  const num = Number.parseInt(value, 10);
+  if (Number.isNaN(num) || num < 16) {
+    ageValid = false;
+    $('#age').css({
+      background: 'red',
+    });
+  } else {
+    $('#age').css({
+      background: '',
+    });
+    ageValid = true;
+  }
+  submitActive();
+}
 
 const cities = {
   auckland: {
@@ -165,29 +205,29 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-map.on('click', (event) => {
-  L.marker(event.latlng).addTo(map);
-});
+// map.on('click', (event) => {
+//   L.marker(event.latlng).addTo(map);
+// });
 
 function setRouting() {
-  console.log(wayPoints);
-  routeControl.getPlan().setWaypoints({
-    latLng: wayPoints,
-  });
+  routeControl.setWaypoints(wayPoints);
 }
 
 function departureChange() {
   const city = cities[this.value];
-  wayPoints[0] = L.latLng(city.lat, city.lng);
+  wayPoints[0] = {
+    lat: city.lat,
+    lng: city.lng,
+  };
   setRouting();
 }
 
-// if marker else new marker
-// look at line 56 from week 7 day 3
-
 function arrivalChange() {
   const city = cities[this.value];
-  wayPoints[0] = L.latLng(city.lat, city.lng);
+  wayPoints[1] = {
+    lat: city.lat,
+    lng: city.lng,
+  };
   setRouting();
 }
 
@@ -228,6 +268,10 @@ function init() {
     router: L.Routing.mapbox('pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA'),
   });
   routeControl.addTo(map);
+  $('#amount-of-people').blur(validateAmountOfPeople);
+  $('#age').blur(validateAge);
+  $('#first-name').blur(validateFirstName);
+  $('#second-name').blur(validateSecondName);
 }
 
 init();

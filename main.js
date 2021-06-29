@@ -35,8 +35,6 @@ function validateAmountOfPeople(event) {
   submitActive();
 }
 
-$.(amountOfPeople)
-
 amountOfPeopleElement.addEventListener('blur', validateAmountOfPeople);
 
 const cities = {
@@ -180,7 +178,6 @@ function setRouting() {
 
 function departureChange() {
   const city = cities[this.value];
-  console.log(city);
   wayPoints[0] = L.latLng(city.lat, city.lng);
   setRouting();
 }

@@ -1,3 +1,4 @@
+/* eslint-disable space-before-function-paren */
 // date-picker
 let startDate;
 let endDate;
@@ -9,6 +10,10 @@ let firstNameValid = true;
 let secondNameValid = true;
 let amountOfPeopleValid = true;
 let ageValid = true;
+
+let firstName = document.getElementById('#first-name');
+let secondName = document.getElementById('#second-name');
+let age = document.getElementById('#age');
 
 let testDistance;
 
@@ -167,7 +172,22 @@ function calcDateRange() {
   const daysInRange = document.getElementsByClassName('inRange');
   numberOfDays = daysInRange.length + 1;
 
-  console.log(`Number of Days: ${numberOfDays}`);
+  // console.log(`Number of Days: ${numberOfDays}`);
+}
+
+function assignUserInputsToVariables () {
+  $('#first-name').keyup(() => {
+    firstName = $('#first-name').val();
+    $('#first-name-output').html(firstName);
+  });
+  $('#second-name').keyup(() => {
+    secondName = $('#first-name').val();
+    $('#second-name-output').html(secondName);
+  });
+  $('#age').keyup(() => {
+    age = $('#first-name').val();
+    $('#age-output').html(age);
+  });
 }
 
 const dateOptions = {
@@ -283,12 +303,14 @@ function init() {
 
   // calculating total distance
   routeControl.on('routesfound', (e) => {
-    console.log('distance');
-    console.log(e.routes[0].summary.totalDistance);
+    // console.log('distance');
+    // console.log(e.routes[0].summary.totalDistance);
     testDistance = e.routes[0].summary.totalDistance;
     const newTestDistance = Math.floor(testDistance / 1000);
     $('#length-of-trip-km').text(`${newTestDistance}KM`);
   });
+
+  assignUserInputsToVariables();
 
   $('#amount-of-people').blur(validateAmountOfPeople);
   $('#age').blur(validateAge);
@@ -297,12 +319,5 @@ function init() {
 }
 // loop over vehicles
 // when correct calculate consumption
-// use totalDist to calculate consumption
-// convert disance to KM
-// flatpickrr.selected dates to get amount of days use js date object
-
-// function calculateDistance(){
-//   testDistance/1000
-// }
 
 init();

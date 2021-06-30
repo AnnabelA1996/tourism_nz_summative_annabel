@@ -12,6 +12,7 @@
         "sourceType": "module"
     },
     "rules": {
+      "operator-linebreak": [2, "after"]
     },
     "globals": {
       "L":"readonly"

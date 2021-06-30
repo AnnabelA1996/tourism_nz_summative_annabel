@@ -8,35 +8,42 @@ let numberOfDays;
 
 let firstNameValid = true;
 let secondNameValid = true;
-let amountOfPeopleValid = true;
+let numberOfPeopleValid = true;
 let ageValid = true;
 
-let firstName = document.getElementById('#first-name');
-let secondName = document.getElementById('#second-name');
-let numberOfPeople = document.getElementById('#number-of-people');
-let age = document.getElementById('#age');
+let firstName;
+let secondName;
+let numberOfPeople;
+let age;
 
 let testDistance;
+let totalDistanceKm;
+
+let validVehicles;
+let departureLocation;
+let destinationLocation;
+let license;
 
 function submitActive() {
-  $('#submit').prop('disabled', !(firstNameValid
-    && secondNameValid && amountOfPeopleValid
-    && ageValid));
+  $('#submit').prop(
+    'disabled',
+    !(firstNameValid && secondNameValid && numberOfPeopleValid && ageValid)
+  );
 }
 
-function validateAmountOfPeople(event) {
+function validateNumberOfPeople(event) {
   const value = event.target.value.trim();
   const num = Number.parseInt(value, 10);
   if (Number.isNaN(num) || num > 6 || num < 1) {
-    amountOfPeopleValid = false;
-    $('#amount-of-people').css({
+    numberOfPeopleValid = false;
+    $('#number-of-people').css({
       background: 'red',
     });
   } else {
-    $('#amount-of-people').css({
+    $('#number-of-people').css({
       background: '',
     });
-    amountOfPeopleValid = true;
+    numberOfPeopleValid = true;
   }
   submitActive();
 }
@@ -86,11 +93,57 @@ function validateAge(event) {
   submitActive();
 }
 
-// const vehicles = {
-//   name: 'Hyundai Elantra Gls',
-//   fuel consumption: 8.5l,
+const vehicles = [
+  {
+    name: 'Hyundai Elantra Gls',
+    consumption: 8.5,
+    minPeople: 1,
+    maxPeople: 2,
+    price: 129,
+    minDays: 1,
+    maxDays: 10,
+    license: ['full', 'restricted', 'learners'],
+  },
 
-// }
+  {
+    name: 'Motorbike',
+    consumption: 3.7,
+    minPeople: 1,
+    maxPeople: 1,
+    price: 109,
+    minDays: 1,
+    maxDays: 5,
+    license: ['motorcycle'],
+  },
+];
+
+// run this when you puch button get travel info
+function generateValidVehicles() {
+  validVehicles = [];
+  vehicles.forEach((vehicle) => {
+    const valid =
+      numberOfPeople <= vehicle.maxPeople &&
+      numberOfPeople >= vehicle.minPeople &&
+      vehicle.license.contains(license) &&
+      numberOfDays <= vehicle.maxDays &&
+      numberOfDays >= vehicle.minDays;
+
+    if (valid) {
+      validVehicles.push({
+        vehicle,
+        totaldist: testDistance,
+        consumption: (vehicle.consumption * totalDistanceKm) / 100,
+        price: vehicle.price * numberOfDays,
+        name: `${firstName} ${secondName}`,
+        numberOfPeople,
+        numberOfDays,
+        departureLocation,
+        destinationLocation,
+      });
+    }
+  });
+}
+
 const cities = {
   auckland: {
     name: 'Auckland',
@@ -110,7 +163,7 @@ const cities = {
   tauranga: {
     name: 'Tauranga',
     lat: -37.7476,
-    lng: 176.1220,
+    lng: 176.122,
   },
   rotorua: {
     name: 'Rotorua',
@@ -154,7 +207,7 @@ const cities = {
   },
   christchurch: {
     name: 'Christchurch',
-    lat: -43.5320,
+    lat: -43.532,
     lng: 172.6306,
   },
   dunedin: {
@@ -174,30 +227,32 @@ const cities = {
   },
 };
 
-function calcDateRange() {
-  const daysInRange = document.getElementsByClassName('inRange');
-  numberOfDays = daysInRange.length + 1;
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-  // console.log(`Number of Days: ${numberOfDays}`);
+function getDaysInRange(start, end) {
+  if (!end) return 1;
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+  const utc2 = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+
+  return Math.floor((utc2 - utc1) / MS_PER_DAY) + 1;
 }
 
-function assignUserInputsToVariables () {
+function assignUserInputsToVariables() {
   $('#first-name').keyup(() => {
-    firstName = $('#first-name').val();
+    firstName = $('#first-name').val().trim();
     $('#first-name-output').html(firstName);
   });
   $('#second-name').keyup(() => {
-    secondName = $('#second-name').val();
+    secondName = $('#second-name').val().trim();
     $('#second-name-output').html(secondName);
   });
   $('#number-of-people').keyup(() => {
-    numberOfPeople = $('#number-of-people').keyup(() => {
-      numberOfPeople = parseInt($('#number-of-people'), 10);
-    }).val();
+    numberOfPeople = Number.parseInt($('#number-of-people').val().trim(), 10);
     $('#number-of-people-output').html(numberOfPeople);
   });
   $('#age').keyup(() => {
-    age = $('#age').val();
+    age = Number.parseInt($('#age').val().trim(), 10);
     $('#age-output').html(age);
     // console.log(numberOfPeople);
   });
@@ -221,7 +276,7 @@ const dateOptions = {
     }
     $('#start-date').text(startDate);
     $('#end-date').text(endDate);
-    calcDateRange();
+    numberOfDays = getDaysInRange(startDate, endDate);
     $('#number-of-days').text(numberOfDays);
   },
 };
@@ -238,16 +293,22 @@ const mapConfig = {
   zoomSnap: 0.2,
 };
 
-const map = L.map('mapid', mapConfig).fitBounds(L.latLngBounds(L.latLng({
-  lng: 179.243,
-  lat: -33.490,
-}), L.latLng({
-  lng: 164.924,
-  lat: -47.600,
-})));
+const map = L.map('mapid', mapConfig).fitBounds(
+  L.latLngBounds(
+    L.latLng({
+      lng: 179.243,
+      lat: -33.49,
+    }),
+    L.latLng({
+      lng: 164.924,
+      lat: -47.6,
+    })
+  )
+);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
 // map.on('click', (event) => {
@@ -260,6 +321,7 @@ function setRouting() {
 
 function departureChange() {
   const city = cities[this.value];
+  departureLocation = city;
   wayPoints[0] = {
     lat: city.lat,
     lng: city.lng,
@@ -269,6 +331,7 @@ function departureChange() {
 
 function arrivalChange() {
   const city = cities[this.value];
+  destinationLocation = city;
   wayPoints[1] = {
     lat: city.lat,
     lng: city.lng,
@@ -310,7 +373,9 @@ function init() {
   initDropdowns();
   routeControl = L.Routing.control({
     waypoints: [null],
-    router: L.Routing.mapbox('pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA'),
+    router: L.Routing.mapbox(
+      'pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA'
+    ),
   });
   routeControl.addTo(map);
 
@@ -319,13 +384,13 @@ function init() {
     // console.log('distance');
     // console.log(e.routes[0].summary.totalDistance);
     testDistance = e.routes[0].summary.totalDistance;
-    const newTestDistance = Math.floor(testDistance / 1000);
-    $('#length-of-trip-km').text(`${newTestDistance}KM`);
+    totalDistanceKm = Math.floor(testDistance / 1000);
+    $('#length-of-trip-km').text(`${totalDistanceKm}KM`);
   });
 
   assignUserInputsToVariables();
 
-  $('#amount-of-people').blur(validateAmountOfPeople);
+  $('#number-of-people').blur(validateNumberOfPeople);
   $('#age').blur(validateAge);
   $('#first-name').blur(validateFirstName);
   $('#second-name').blur(validateSecondName);

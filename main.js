@@ -13,6 +13,7 @@ let ageValid = true;
 
 let firstName = document.getElementById('#first-name');
 let secondName = document.getElementById('#second-name');
+let numberOfPeople = document.getElementById('#number-of-people');
 let age = document.getElementById('#age');
 
 let testDistance;
@@ -85,6 +86,11 @@ function validateAge(event) {
   submitActive();
 }
 
+// const vehicles = {
+//   name: 'Hyundai Elantra Gls',
+//   fuel consumption: 8.5l,
+
+// }
 const cities = {
   auckland: {
     name: 'Auckland',
@@ -181,12 +187,19 @@ function assignUserInputsToVariables () {
     $('#first-name-output').html(firstName);
   });
   $('#second-name').keyup(() => {
-    secondName = $('#first-name').val();
+    secondName = $('#second-name').val();
     $('#second-name-output').html(secondName);
   });
+  $('#number-of-people').keyup(() => {
+    numberOfPeople = $('#number-of-people').keyup(() => {
+      numberOfPeople = parseInt($('#number-of-people'), 10);
+    }).val();
+    $('#number-of-people-output').html(numberOfPeople);
+  });
   $('#age').keyup(() => {
-    age = $('#first-name').val();
+    age = $('#age').val();
     $('#age-output').html(age);
+    // console.log(numberOfPeople);
   });
 }
 

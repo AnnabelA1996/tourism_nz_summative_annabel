@@ -40,6 +40,13 @@
   <main id="user-inputs" class="view">
 
     <section id="section1">
+
+      <select name="language" id="language">
+        <option selected disabled>Select a Language</option>
+        <option value="">English</option>
+        <option value="">Te Reo Māori</option>
+      </select>
+
       <div class="container">
         <h1>Your Details</h1>
         <form action="">
@@ -71,13 +78,20 @@
                 <label for="text">where are you travelling from?</label>
                 <select name="country" id="country">
                   <option selected disabled>Select Country</option>
+                  <option value="">New Zealand</option>
+                  <option value="">Australia</option>
                 </select>
               </div>
 
               <div class="firstline">
-                <label for="text">License Type</label>
+                <label for="text">License Type <span>*Please note, if you are not fully licensed this may incur additional charges when
+                  hiring a vehicle</span></label>
                 <select name="license" id="license">
                   <option selected disabled>Select License Type</option>
+                  <option value="">Full NZ License (or equivalent to)</option>
+                  <option value="">Restricted NZ License (or equvalent to)</option>
+                  <option value="">Learners NZ License (or equivalent to)</option>
+                  <option value="">Motorcycle NZ License (or equivalent to)</option>
                 </select>
               </div>
             </div>
@@ -88,6 +102,7 @@
 
       <p>First Name: <span id="first-name-output"></span></p>
       <p>Second Name: <span id="second-name-output"></span></p>
+      <p>Number of People: <span id="number-of-people-output"></span></p>
       <p>Age: <span id="age-output"></span></p>
     </section>
 
@@ -115,10 +130,47 @@
 
   <section id="covid" class="view">
     <h2>Covid-19 Information</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis nulla fugit porro explicabo praesentium
-      veniam inventore recusandae distinctio voluptatum doloremque similique dolores tempore officia sapiente quas modi,
-      libero eveniet corrupti delectus odio velit! Nesciunt, repudiandae dolorum placeat minima, quidem expedita nemo
-      error illum adipisci sed aspernatur repellendus, consectetur quis beatae?</p>
+
+    <h3 class="subheading">Find out how to stay safe and healthy when the time comes for us to welcome you back to New Zealand.</h3>
+    <p class="body-text">
+      Look for the latest updates on travel restrictions on our travel alerts page, or visit the New Zealand       Government's Covid-19 website.
+      <br><br>
+      To slow the spread of COVID-19, The New Zealand Government has put in place temporary border restrictions which prevent most travellers from entering New Zealand. Visit the Immigration New Zealand website for the latest updates on border rules and exceptions, and to find more information about travel restrictions.
+    </p>
+
+    <h3 class="subheading">Before you travel</h3>
+    <p class="body-text">
+      New Zealand’s borders are currently closed for visitors from most countries to help stop the spread of COVID-19. Before planning your travel to New Zealand, make sure you are eligible for travel and have taken the right steps.
+    </p>
+
+    <h3 class="subheading">Travelling around New Zealand</h3>
+    <p class="body-text">
+      Know what to expect while travelling and follow some simple guidelines to stay safe in New Zealand.
+      <br><br>
+      Using the Covid Tracer app(opens in new window) is a fast, easy way of keeping yourself and others safe. Contacting people who might have been exposed to Covid-19 quickly is essential for slowing the spread of the virus.
+      <br><br>
+      Download the app and scan QR codes at any place you stay or visit to keep you and others safe.
+      <br><br>
+      Download on the App Store(opens in new window) | Get if from Google Play(opens in new window)
+    </p>
+
+    <h3 class="subheading">Stay safe on planes and public transport</h3>
+    <p class="body-text">
+      Face coverings are legally required on all public transport, including both long-distance buses and trains and transport within cities.
+      <br><br>
+      Face coverings are also mandatory on all domestic flights.
+      <br><br>
+      Wearing a face covering in a rideshare or taxi is recommended, but not legally required. It is required for your driver to wear a face covering.
+    </p>
+    <h3 class="subheading">Understand our alert levels</h3>
+    <p class="body-text">
+      New Zealand has a four-tier Covid-19 alert level system. The Covid-19 website explains what to do at different alert levels.
+      <br><br>
+      Even at Alert Level 1, you should practice good hygiene, wash your hands often, and try to physically distance yourself from others where possible.
+    </p>
+    <img src="./images/camper-people.jpg" alt="">
+
+
   </section>
 
   <section id="deals" class="view">
@@ -127,6 +179,10 @@
       veniam inventore recusandae distinctio voluptatum doloremque similique dolores tempore officia sapiente quas modi,
       libero eveniet corrupti delectus odio velit! Nesciunt, repudiandae dolorum placeat minima, quidem expedita nemo
       error illum adipisci sed aspernatur repellendus, consectetur quis beatae?</p>
+
+
+
+
   </section>
 
 

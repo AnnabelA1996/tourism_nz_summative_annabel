@@ -10,7 +10,7 @@ let secondNameValid = true;
 let amountOfPeopleValid = true;
 let ageValid = true;
 
-let totalDist;
+let testDistance;
 
 function submitActive() {
   $('#submit').prop('disabled', !(firstNameValid
@@ -285,7 +285,9 @@ function init() {
   routeControl.on('routesfound', (e) => {
     console.log('distance');
     console.log(e.routes[0].summary.totalDistance);
-    (totaldist = (e.routes[0].summary.totalDistance));
+    testDistance = e.routes[0].summary.totalDistance;
+    const newTestDistance = Math.floor(testDistance / 1000);
+    $('#length-of-trip-km').text(`${newTestDistance}KM`);
   });
 
   $('#amount-of-people').blur(validateAmountOfPeople);
@@ -300,7 +302,7 @@ function init() {
 // flatpickrr.selected dates to get amount of days use js date object
 
 // function calculateDistance(){
-//   validVehicles
+//   testDistance/1000
 // }
 
 init();

@@ -260,6 +260,8 @@ function initScreens() {
   $('.nav-logo').click(changeScreen);
 }
 
+const totaldist
+
 function init() {
   initScreens();
   initDropdowns();
@@ -268,6 +270,14 @@ function init() {
     router: L.Routing.mapbox('pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA'),
   });
   routeControl.addTo(map);
+
+  //
+  routeControl.on('routesfound', (e) => {
+    console.log('distance');
+    console.log(e.routes[0].summary.totalDistance);
+    (totaldist = (e.routes[0].summary.totalDistance));
+  });
+
   $('#amount-of-people').blur(validateAmountOfPeople);
   $('#age').blur(validateAge);
   $('#first-name').blur(validateFirstName);

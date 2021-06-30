@@ -27,7 +27,7 @@ let license;
 function submitActive() {
   $('#submit').prop(
     'disabled',
-    !(firstNameValid && secondNameValid && numberOfPeopleValid && ageValid)
+    !(firstNameValid && secondNameValid && numberOfPeopleValid && ageValid),
   );
 }
 
@@ -302,8 +302,8 @@ const map = L.map('mapid', mapConfig).fitBounds(
     L.latLng({
       lng: 164.924,
       lat: -47.6,
-    })
-  )
+    }),
+  ),
 );
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -374,7 +374,7 @@ function init() {
   routeControl = L.Routing.control({
     waypoints: [null],
     router: L.Routing.mapbox(
-      'pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA'
+      'pk.eyJ1IjoiYW5uYWJlbGEiLCJhIjoiY2txZ2VhNjk2MDQ2bTJ3bnl6NXF2eDFpMyJ9.q1BsrbH_z74eNRr8KJCOJA',
     ),
   });
   routeControl.addTo(map);

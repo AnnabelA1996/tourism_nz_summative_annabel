@@ -2,7 +2,7 @@
 module.exports = {
   ...require('prettier-airbnb-config'),
   singleQuote: true,
-
-  trailingComma: 'always',
+  semi: true,
+  trailingComma: 'all',
   arrowParens: 'always',
 };

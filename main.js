@@ -1,6 +1,7 @@
 // date-picker
 let startDate;
 let endDate;
+let numberOfDays;
 
 // input form
 
@@ -8,6 +9,8 @@ let firstNameValid = true;
 let secondNameValid = true;
 let amountOfPeopleValid = true;
 let ageValid = true;
+
+let totalDist;
 
 function submitActive() {
   $('#submit').prop('disabled', !(firstNameValid
@@ -160,6 +163,13 @@ const cities = {
   },
 };
 
+function calcDateRange() {
+  const daysInRange = document.getElementsByClassName('inRange');
+  numberOfDays = daysInRange.length + 1;
+
+  console.log(`Number of Days: ${numberOfDays}`);
+}
+
 const dateOptions = {
   altInput: true,
   altFormat: 'F j, Y',
@@ -178,6 +188,8 @@ const dateOptions = {
     }
     $('#start-date').text(startDate);
     $('#end-date').text(endDate);
+    calcDateRange();
+    $('#number-of-days').text(numberOfDays);
   },
 };
 
@@ -260,8 +272,6 @@ function initScreens() {
   $('.nav-logo').click(changeScreen);
 }
 
-const totaldist
-
 function init() {
   initScreens();
   initDropdowns();
@@ -271,7 +281,7 @@ function init() {
   });
   routeControl.addTo(map);
 
-  //
+  // calculating total distance
   routeControl.on('routesfound', (e) => {
     console.log('distance');
     console.log(e.routes[0].summary.totalDistance);
@@ -283,5 +293,14 @@ function init() {
   $('#first-name').blur(validateFirstName);
   $('#second-name').blur(validateSecondName);
 }
+// loop over vehicles
+// when correct calculate consumption
+// use totalDist to calculate consumption
+// convert disance to KM
+// flatpickrr.selected dates to get amount of days use js date object
+
+// function calculateDistance(){
+//   validVehicles
+// }
 
 init();

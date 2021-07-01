@@ -10,6 +10,7 @@ let firstNameValid = true;
 let secondNameValid = true;
 let numberOfPeopleValid = true;
 let ageValid = true;
+let licenseValid = false;
 
 let firstName;
 let secondName;
@@ -34,6 +35,7 @@ function submitActive() {
 function validateNumberOfPeople(event) {
   const value = event.target.value.trim();
   const num = Number.parseInt(value, 10);
+  numberOfPeople = num;
   if (Number.isNaN(num) || num > 6 || num < 1) {
     numberOfPeopleValid = false;
     $('#number-of-people').css({
@@ -46,6 +48,10 @@ function validateNumberOfPeople(event) {
     numberOfPeopleValid = true;
   }
   submitActive();
+}
+
+function validateLicense(event) {
+  (license = event.target.value), (licenseValid = true);
 }
 
 function validateFirstName(event) {
@@ -95,7 +101,7 @@ function validateAge(event) {
 
 const vehicles = [
   {
-    name: 'Hyundai Elantra Gls',
+    name: 'Small Car',
     consumption: 8.5,
     minPeople: 1,
     maxPeople: 2,
@@ -103,6 +109,7 @@ const vehicles = [
     minDays: 1,
     maxDays: 10,
     license: ['full', 'restricted', 'learners'],
+    imgId: 'small-car',
   },
 
   {
@@ -114,24 +121,75 @@ const vehicles = [
     minDays: 1,
     maxDays: 5,
     license: ['motorcycle'],
+    imgId: 'small-car',
+  },
+
+  {
+    name: 'Large Car',
+    consumption: 9.71,
+    minPeople: 1,
+    maxPeople: 5,
+    price: 129,
+    minDays: 3,
+    maxDays: 10,
+    license: ['full', 'restricted', 'learners'],
+    imgId: 'large-car',
+  },
+
+  {
+    name: 'motor home',
+    consumption: 17,
+    minPeople: 2,
+    maxPeople: 6,
+    price: 200,
+    minDays: 2,
+    maxDays: 15,
+    license: ['full', 'restricted', 'learners'],
+    imgId: 'van',
   },
 ];
 
-// run this when you puch button get travel info
+function displayRecommendedVehicles(vehiclesArray) {
+  console.log('blah');
+  let html = '';
+  vehiclesArray.forEach((recommendation) => {
+    html += `<div><img src="/images/${recommendation.vehicle.imgId}.png">
+              <p>${recommendation.vehicle.name}</p>
+              <p>${recommendation.license}</p>
+              <p>${recommendation.consumption}</p>
+              <p>${recommendation.totaldist}</p>
+              <p>${recommendation.price}</p>
+              <p>${recommendation.name}</p>
+              <p>${recommendation.departureLocation.name}</p>
+              <p>${recommendation.destinationLocation.name}</p>
+              <p>${recommendation.startDate.toDateString()}</p>
+              <p>${recommendation.endDate.toDateString()}</p>
+              <p>${recommendation.numberOfPeople}</p>
+            </div>`;
+  });
+  $('#recommended-vehicles').html(html);
+  // console.log(html);
+}
+
 function generateValidVehicles() {
   validVehicles = [];
   vehicles.forEach((vehicle) => {
     const valid =
       numberOfPeople <= vehicle.maxPeople &&
       numberOfPeople >= vehicle.minPeople &&
-      vehicle.license.contains(license) &&
+      vehicle.license.includes(license) &&
       numberOfDays <= vehicle.maxDays &&
       numberOfDays >= vehicle.minDays;
+
+    // console.log(vehicle.name);
+    // console.log(
+    //   `number of ppl: ${numberOfPeople}, vehicle.maxPeople: ${vehicle.maxPeople}, vehicle.minPeople: ${vehicle.minPeople}, vehicle.minDays: ${vehicle.minDays}, vehicle.maxDays: ${vehicle.maxDays}, vehicle.license: ${vehicle.license}, license: ${license}, numberOfDays: ${numberOfDays}`,
+    );
 
     if (valid) {
       validVehicles.push({
         vehicle,
-        totaldist: testDistance,
+        totaldist: totalDistanceKm,
         consumption: (vehicle.consumption * totalDistanceKm) / 100,
         price: vehicle.price * numberOfDays,
         name: `${firstName} ${secondName}`,
@@ -139,9 +197,13 @@ function generateValidVehicles() {
         numberOfDays,
         departureLocation,
         destinationLocation,
+        license,
+        startDate,
+        endDate,
       });
     }
   });
+  displayRecommendedVehicles(validVehicles);
 }
 
 const cities = {
@@ -394,6 +456,8 @@ function init() {
   $('#age').blur(validateAge);
   $('#first-name').blur(validateFirstName);
   $('#second-name').blur(validateSecondName);
+  $('#license').blur(validateLicense);
+  $('#btn').click(generateValidVehicles);
 }
 // loop over vehicles
 // when correct calculate consumption

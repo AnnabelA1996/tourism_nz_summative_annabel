@@ -30,7 +30,7 @@
     // Load exchange rates data via AJAX:
     $.getJSON(
     	// NB: using Open Exchange Rates here, but you can use any source!
-        'https://openexchangerates.org/api/latest.json?app_id=[e95fb9d6dfaf4ecaaefca9437c596cf1]',
+        'https://openexchangerates.org/api/latest.json?app_id=e95fb9d6dfaf4ecaaefca9437c596cf1',
         function(data) {
             // Check money.js has finished loading:
             if ( typeof fx !== "undefined" && fx.rates ) {
@@ -71,7 +71,7 @@
       <p>Select a Currency</p>
       <select name="currency" id="currency">
         <option value="NZD">NZD</option>
-        <option value="NZD">AUD</option>
+        <option value="AUD">AUD</option>
       </select>
 
       <div class="container">
@@ -82,11 +82,13 @@
             <div class="firstline">
               <label for="text">First Name</label>
               <input type="" id="first-name">
+              <label for="invalid" id="first-name-invalid" class="invalid" >this field is required</label>
             </div>
 
             <div class="firstline">
               <label for="text">Second Name</label>
               <input type="" id="second-name">
+              <label for="invalid" id="second-name-invalid" class="invalid">*this field is required</label>
             </div>
           </div>
 
@@ -94,12 +96,14 @@
             <div class="firstline">
               <label for="text">number of people</label>
               <input type="" id="number-of-people">
+              <label for="invalid" id="number-of-people-invalid" class="invalid">*there cannot be less than 1 person or more than 6</label>
             </div>
 
             <div class="firstline">
               <label for="text">age <span>*Please note, if you are under 25 this may incur additional charges when
                   hiring a vehicle</span></label>
               <input type="" id="age">
+              <label for="invalid" id="age-invalid" class="invalid">*you must be 16 or older to drive on New Zealand roads</label>
 
               <div class="firstline">
                 <label for="text">where are you travelling from?</label>
@@ -108,6 +112,7 @@
                   <option value="">New Zealand</option>
                   <option value="">Australia</option>
                 </select>
+                <label for="invalid" id="country-invalid" class="invalid">*this field is required</label>
               </div>
 
               <div class="firstline">
@@ -120,6 +125,7 @@
                   <option value="learners">Learners NZ License (or equivalent to)</option>
                   <option value="motorcycle">Motorcycle NZ License (or equivalent to)</option>
                 </select>
+                <label for="invalid" id="license-invalid" class="invalid">*you must hold a current license to drive on New Zealand roads</label>
               </div>
             </div>
         </form>

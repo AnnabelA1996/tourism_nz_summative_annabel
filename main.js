@@ -6,10 +6,10 @@ let numberOfDays;
 
 // input form
 
-let firstNameValid = true;
-let secondNameValid = true;
-let numberOfPeopleValid = true;
-let ageValid = true;
+let firstNameValid = false;
+let secondNameValid = false;
+let numberOfPeopleValid = false;
+let ageValid = false;
 let licenseValid = false;
 let currencyValid = true;
 
@@ -68,9 +68,15 @@ function validateFirstName(event) {
     $('#first-name').css({
       background: '',
     });
+    $('#first-name-invalid').css({
+      display: 'none',
+    });
   } else {
     $('#first-name').css({
       background: 'red',
+    });
+    $('#first-name-invalid').css({
+      display: 'inherit',
     });
   }
   submitActive();
@@ -82,9 +88,15 @@ function validateSecondName(event) {
     $('#second-name').css({
       background: '',
     });
+    $('#second-name-invalid').css({
+      display: 'none',
+    });
   } else {
     $('#second-name').css({
       background: 'red',
+    });
+    $('#second-name-invalid').css({
+      display: 'inherit',
     });
   }
   submitActive();
@@ -129,7 +141,7 @@ const vehicles = [
     minDays: 1,
     maxDays: 5,
     license: ['motorcycle'],
-    imgId: 'small-car',
+    imgId: 'motorcyle',
   },
 
   {
@@ -137,7 +149,7 @@ const vehicles = [
     consumption: 9.71,
     minPeople: 1,
     maxPeople: 5,
-    price: 129,
+    price: 144,
     minDays: 3,
     maxDays: 10,
     license: ['full', 'restricted', 'learners'],
@@ -188,19 +200,12 @@ function generateValidVehicles() {
       vehicle.license.includes(license) &&
       numberOfDays <= vehicle.maxDays &&
       numberOfDays >= vehicle.minDays;
-
-    // console.log(vehicle.name);
-    // console.log(
-    //   `number of ppl: ${numberOfPeople}, vehicle.maxPeople: ${vehicle.maxPeople}, vehicle.minPeople: ${vehicle.minPeople}, vehicle.minDays: ${vehicle.minDays}, vehicle.maxDays: ${vehicle.maxDays}, vehicle.license: ${vehicle.license}, license: ${license}, numberOfDays: ${numberOfDays}`,
-    // );
-
     if (valid) {
       validVehicles.push({
         vehicle,
         totaldist: totalDistanceKm,
         consumption: (vehicle.consumption * totalDistanceKm) / 100,
-        price:
-        fx(vehicle.price * numberOfDays,).convert({ from:'NZD', to: currency}),
+        price: fx(vehicle.price * numberOfDays).convert({ from: 'NZD', to: currency }),
         name: `${firstName} ${secondName}`,
         numberOfPeople,
         numberOfDays,
@@ -214,6 +219,14 @@ function generateValidVehicles() {
   });
   displayRecommendedVehicles(validVehicles);
 }
+
+// function getTravelInfo() {
+//   if (firstNameValid && secondNameValid && currencyValid && others) {
+//     generateValidVehicles();
+//   } else {
+//     // display error message
+//   }
+// }
 
 const cities = {
   auckland: {

@@ -25,6 +25,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="plugins/money.js"></script>
+  <script type="text/javascript">
+    // Load exchange rates data via AJAX:
+    $.getJSON(
+    	// NB: using Open Exchange Rates here, but you can use any source!
+        'https://openexchangerates.org/api/latest.json?app_id=[e95fb9d6dfaf4ecaaefca9437c596cf1]',
+        function(data) {
+            // Check money.js has finished loading:
+            if ( typeof fx !== "undefined" && fx.rates ) {
+                fx.rates = data.rates;
+                fx.base = data.base;
+            } else {
+                // If not, apply to fxSetup global:
+                var fxSetup = {
+                    rates : data.rates,
+                    base : data.base
+                }
+            }
+        }
+    );
+</script>
+
   <script defer src="main.js"></script>
 </head>
 
@@ -45,6 +67,11 @@
         <option selected disabled>Select a Language</option>
         <option value="">English</option>
         <option value="">Te Reo Māori</option>
+      </select>
+      <p>Select a Currency</p>
+      <select name="currency" id="currency">
+        <option value="NZD">NZD</option>
+        <option value="NZD">AUD</option>
       </select>
 
       <div class="container">

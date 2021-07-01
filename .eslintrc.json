@@ -15,6 +15,7 @@
       "operator-linebreak": [2, "after"]
     },
     "globals": {
-      "L":"readonly"
+      "L":"readonly",
+      "fx": "readonly"
     }
 }

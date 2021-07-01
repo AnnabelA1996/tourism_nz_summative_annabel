@@ -11,6 +11,7 @@ let secondNameValid = true;
 let numberOfPeopleValid = true;
 let ageValid = true;
 let licenseValid = false;
+let currencyValid = true;
 
 let firstName;
 let secondName;
@@ -24,6 +25,7 @@ let validVehicles;
 let departureLocation;
 let destinationLocation;
 let license;
+let currency = 'NZD';
 
 function submitActive() {
   $('#submit').prop(
@@ -51,7 +53,13 @@ function validateNumberOfPeople(event) {
 }
 
 function validateLicense(event) {
-  (license = event.target.value), (licenseValid = true);
+  license = event.target.value;
+  licenseValid = true;
+}
+
+function validateCurrency(event) {
+  currency = event.target.value;
+  currencyValid = true;
 }
 
 function validateFirstName(event) {
@@ -184,14 +192,15 @@ function generateValidVehicles() {
     // console.log(vehicle.name);
     // console.log(
     //   `number of ppl: ${numberOfPeople}, vehicle.maxPeople: ${vehicle.maxPeople}, vehicle.minPeople: ${vehicle.minPeople}, vehicle.minDays: ${vehicle.minDays}, vehicle.maxDays: ${vehicle.maxDays}, vehicle.license: ${vehicle.license}, license: ${license}, numberOfDays: ${numberOfDays}`,
-    );
+    // );
 
     if (valid) {
       validVehicles.push({
         vehicle,
         totaldist: totalDistanceKm,
         consumption: (vehicle.consumption * totalDistanceKm) / 100,
-        price: vehicle.price * numberOfDays,
+        price:
+        fx(vehicle.price * numberOfDays,).convert({ from:'NZD', to: currency}),
         name: `${firstName} ${secondName}`,
         numberOfPeople,
         numberOfDays,
@@ -456,7 +465,8 @@ function init() {
   $('#age').blur(validateAge);
   $('#first-name').blur(validateFirstName);
   $('#second-name').blur(validateSecondName);
-  $('#license').blur(validateLicense);
+  $('#license').change(validateLicense);
+  $('#currency').change(validateCurrency);
   $('#btn').click(generateValidVehicles);
 }
 // loop over vehicles

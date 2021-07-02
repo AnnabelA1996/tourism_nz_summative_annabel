@@ -28,6 +28,8 @@ let license;
 let country;
 let currency = 'NZD';
 
+let routeValid = false;
+
 function submitActive() {
   $('#submit').prop(
     'disabled',
@@ -241,31 +243,50 @@ function displayRecommendedVehicles(vehiclesArray) {
 
 function generateValidVehicles() {
   validVehicles = [];
-  vehicles.forEach((vehicle) => {
-    const valid =
-      numberOfPeople <= vehicle.maxPeople &&
-      numberOfPeople >= vehicle.minPeople &&
-      vehicle.license.includes(license) &&
-      numberOfDays <= vehicle.maxDays &&
-      numberOfDays >= vehicle.minDays;
-    if (valid) {
-      validVehicles.push({
-        vehicle,
-        totaldist: totalDistanceKm,
-        consumption: (vehicle.consumption * totalDistanceKm) / 100,
-        price: fx(vehicle.price * numberOfDays).convert({ from: 'NZD', to: currency }),
-        name: `${firstName} ${secondName}`,
-        numberOfPeople,
-        numberOfDays,
-        departureLocation,
-        destinationLocation,
-        license,
-        startDate,
-        endDate,
-      });
-    }
-  });
-  displayRecommendedVehicles(validVehicles);
+  if (
+    firstNameValid &&
+    secondNameValid &&
+    numberOfPeopleValid &&
+    ageValid &&
+    licenseValid &&
+    countryValid &&
+    startDate &&
+    endDate &&
+    routeValid
+  ) {
+    $('#locations-invalid').css({
+      display: 'none',
+    });
+    vehicles.forEach((vehicle) => {
+      const valid =
+        numberOfPeople <= vehicle.maxPeople &&
+        numberOfPeople >= vehicle.minPeople &&
+        vehicle.license.includes(license) &&
+        numberOfDays <= vehicle.maxDays &&
+        numberOfDays >= vehicle.minDays;
+      if (valid) {
+        validVehicles.push({
+          vehicle,
+          totaldist: totalDistanceKm,
+          consumption: (vehicle.consumption * totalDistanceKm) / 100,
+          price: fx(vehicle.price * numberOfDays).convert({ from: 'NZD', to: currency }),
+          name: `${firstName} ${secondName}`,
+          numberOfPeople,
+          numberOfDays,
+          departureLocation,
+          destinationLocation,
+          license,
+          startDate,
+          endDate,
+        });
+      }
+    });
+    displayRecommendedVehicles(validVehicles);
+  } else {
+    $('#locations-invalid').css({
+      display: 'inherit',
+    });
+  }
 }
 
 const cities = {
@@ -518,11 +539,10 @@ function init() {
 
   // calculating total distance
   routeControl.on('routesfound', (e) => {
-    // console.log('distance');
-    // console.log(e.routes[0].summary.totalDistance);
     testDistance = e.routes[0].summary.totalDistance;
     totalDistanceKm = Math.floor(testDistance / 1000);
     $('#length-of-trip-km').text(`${totalDistanceKm}KM`);
+    routeValid = true;
   });
 
   assignUserInputsToVariables();

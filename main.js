@@ -11,10 +11,10 @@ let secondNameValid = false;
 let numberOfPeopleValid = false;
 let ageValid = false;
 let licenseValid = false;
-let currencyValid = true;
+let countryValid = true;
 
-let firstName;
-let secondName;
+let firstName = '';
+let secondName = '';
 let numberOfPeople;
 let age;
 
@@ -25,6 +25,7 @@ let validVehicles;
 let departureLocation;
 let destinationLocation;
 let license;
+let country;
 let currency = 'NZD';
 
 function submitActive() {
@@ -34,8 +35,8 @@ function submitActive() {
   );
 }
 
-function validateNumberOfPeople(event) {
-  const value = event.target.value.trim();
+function validateNumberOfPeople() {
+  const value = numberOfPeople;
   const num = Number.parseInt(value, 10);
   numberOfPeople = num;
   if (Number.isNaN(num) || num > 6 || num < 1) {
@@ -52,18 +53,40 @@ function validateNumberOfPeople(event) {
   submitActive();
 }
 
-function validateLicense(event) {
-  license = event.target.value;
+function validateLicense() {
+  license = $('#license').val();
   licenseValid = true;
+  if (license) {
+    $('#license-invalid').css({
+      display: 'none',
+    });
+  } else {
+    $('#license-invalid').css({
+      display: 'inherit',
+    });
+  }
 }
 
-function validateCurrency(event) {
+function validateCountry() {
+  country = $('#country').val();
+  countryValid = true;
+  if (country) {
+    $('#country-invalid').css({
+      display: 'none',
+    });
+  } else {
+    $('#country-invalid').css({
+      display: 'inherit',
+    });
+  }
+}
+
+function currencyOnChange(event) {
   currency = event.target.value;
-  currencyValid = true;
 }
 
-function validateFirstName(event) {
-  firstNameValid = /^[a-zA-Z]+$/.test(event.target.value.trim());
+function validateFirstName() {
+  firstNameValid = /^[a-zA-Z]+$/.test(firstName);
   if (firstNameValid) {
     $('#first-name').css({
       background: '',
@@ -82,8 +105,8 @@ function validateFirstName(event) {
   submitActive();
 }
 
-function validateSecondName(event) {
-  secondNameValid = /^[a-zA-Z]+$/.test(event.target.value.trim());
+function validateSecondName() {
+  secondNameValid = /^[a-zA-Z]+$/.test(secondName);
   if (secondNameValid) {
     $('#second-name').css({
       background: '',
@@ -102,21 +125,47 @@ function validateSecondName(event) {
   submitActive();
 }
 
-function validateAge(event) {
-  const value = event.target.value.trim();
+function validateAge() {
+  const value = age;
   const num = Number.parseInt(value, 10);
   if (Number.isNaN(num) || num < 16) {
     ageValid = false;
     $('#age').css({
       background: 'red',
     });
+    $('#age-invalid').css({
+      display: 'inherit',
+    });
   } else {
     $('#age').css({
       background: '',
     });
+    $('#age-invalid').css({
+      display: 'none',
+    });
     ageValid = true;
   }
   submitActive();
+}
+
+function sectionOneOnClick() {
+  if (
+    firstNameValid &&
+    secondNameValid &&
+    numberOfPeopleValid &&
+    ageValid &&
+    licenseValid &&
+    countryValid
+  ) {
+    $('#section2')[0].scrollIntoView();
+  } else {
+    validateFirstName();
+    validateSecondName();
+    validateNumberOfPeople();
+    validateAge();
+    validateCountry();
+    validateLicense();
+  }
 }
 
 const vehicles = [
@@ -170,7 +219,6 @@ const vehicles = [
 ];
 
 function displayRecommendedVehicles(vehiclesArray) {
-  console.log('blah');
   let html = '';
   vehiclesArray.forEach((recommendation) => {
     html += `<div><img src="/images/${recommendation.vehicle.imgId}.png">
@@ -219,14 +267,6 @@ function generateValidVehicles() {
   });
   displayRecommendedVehicles(validVehicles);
 }
-
-// function getTravelInfo() {
-//   if (firstNameValid && secondNameValid && currencyValid && others) {
-//     generateValidVehicles();
-//   } else {
-//     // display error message
-//   }
-// }
 
 const cities = {
   auckland: {
@@ -365,6 +405,19 @@ const dateOptions = {
   },
 };
 
+function sectionTwoOnClick() {
+  if (startDate && endDate) {
+    $('#dates-invalid').css({
+      display: 'none',
+    });
+    $('#section3')[0].scrollIntoView();
+  } else {
+    $('#dates-invalid').css({
+      display: 'inherit',
+    });
+  }
+}
+
 const wayPoints = [];
 
 let routeControl;
@@ -479,10 +532,11 @@ function init() {
   $('#first-name').blur(validateFirstName);
   $('#second-name').blur(validateSecondName);
   $('#license').change(validateLicense);
-  $('#currency').change(validateCurrency);
+  $('#country').change(validateCountry);
+  $('#currency').change(currencyOnChange);
   $('#btn').click(generateValidVehicles);
+  $('#submit').click(sectionOneOnClick);
+  $('#submit-2').click(sectionTwoOnClick);
 }
-// loop over vehicles
-// when correct calculate consumption
 
 init();

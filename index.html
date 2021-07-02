@@ -109,8 +109,8 @@
                 <label for="text">where are you travelling from?</label>
                 <select name="country" id="country">
                   <option selected disabled>Select Country</option>
-                  <option value="">New Zealand</option>
-                  <option value="">Australia</option>
+                  <option value="New Zealand">New Zealand</option>
+                  <option value="Australia">Australia</option>
                 </select>
                 <label for="invalid" id="country-invalid" class="invalid">*this field is required</label>
               </div>
@@ -131,7 +131,7 @@
         </form>
 
       </div>
-      <button id="submit"><a href="#section2">Next</a></button>
+      <button id="submit"> <p>Next</p> </button>
 
       <p>First Name: <span id="first-name-output"></span></p>
       <p>Second Name: <span id="second-name-output"></span></p>
@@ -140,12 +140,15 @@
     </section>
 
     <section id="section2">
-      <input type="text" id="datepicker" placeholder="Select Date">
+      <input type="text" id="datepicker" placeholder="Select Date" required>
+      <label for="invalid" id="dates-invalid" class="invalid">*you must select a start and end date</label>
       <p>start Date: <span id="start-date"></span></p>
       <p>end Date: <span id="end-date"></span></p>
       <p>amount of days: <span id="number-of-days"></span></p>
-      <a href="#section3">Next</a>
+     <button id="submit-2" >next</button>
+
     </section>
+
     <section id="section3">
       <select name="depature-location" id="departure-location">
         <option selected disabled>Departure Location</option>
@@ -155,11 +158,12 @@
       </select>
       <div id="mapid"></div>
       <p>Total Distance: <span id="length-of-trip-km"></span></p>
-      <a href="#section4">Reset</a>
-      <button id="btn" ><a href="#section4">Get Travel Info</a></button>
+      <button id="btn"><p>Next</p></button>
     </section>
     <section id="section4">
       <div id="recommended-vehicles"></div>
+      <label for="email">Email</label>
+      <button>Confirm Trip</button>
     </section>
   </main>
 
